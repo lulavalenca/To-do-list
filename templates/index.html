@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do List</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>To-Do List</h1>
+        
+        <!-- Formulário para adicionar uma nova tarefa -->
+        <form action="/add" method="POST">
+            <input type="text" name="todo" placeholder="Enter a new task" required>
+            <button type="submit" class="btn-add">Add</button>
+        </form>
+        
+        <!-- Lista de tarefas -->
+        <ul class="todo-list">
+            {% for todo in todos %}
+                <li class="todo-item">
+                    {{ todo.title }} <!-- Exibe o título da tarefa -->
+                    
+                    <!-- Botão para remover a tarefa -->
+                    <form action="{{ url_for('delete_todo', todo_id=todo.id) }}" method="GET" style="display:inline;">
+                        <button type="submit" class="btn-delete">Remove</button>
+                    </form>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+    
+    <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
+</body>
+</html>
